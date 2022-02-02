@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.lang.Math;
 
 public class Spheroid
 {
@@ -11,5 +12,7 @@ public class Spheroid
         double polarRadius = input.nextDouble();
         input.close();
 
+        double eccentricity = Math.sqrt(1-(Math.pow(polarRadius, 2)/Math.pow(equatorialRadius, 2)));
+        double volume = (4*Math.PI*Math.pow(equatorialRadius, 2)*polarRadius)/3;
     }
 }
