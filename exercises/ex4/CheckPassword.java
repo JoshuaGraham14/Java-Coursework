@@ -31,14 +31,14 @@ public class CheckPassword
 
     public static void main(String[] args) 
     {
-        if (longEnough(args[0]) == true & atLeastTwoDigits(args[0]) == true)
+        if(args.length == 0)
+        {
+            System.err.println("Usage: java CheckPassword <password>");
+            System.exit(1);
+        }
+        else if (longEnough(args[0]) == true & atLeastTwoDigits(args[0]) == true)
         {
             System.out.println("Password is valid");
-        }
-        else if(args[0] == null)
-        {
-            System.out.println(System.err);
-            System.exit(1);
         }
         else 
         {
