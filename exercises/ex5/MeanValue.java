@@ -2,7 +2,12 @@ public class MeanValue
 {
     public static double meanValue(double[] data) 
     {
-        return 0;
+        double total = 0.0;
+        for (int i = 0; i < data.length; i++)
+        {
+            total += data[i];
+        }
+        return total/data.length;
     }
 
     public static void main(String[] args) 
