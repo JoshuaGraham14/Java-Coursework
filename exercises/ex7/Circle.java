@@ -36,4 +36,16 @@ public class Circle
     {
         return String.format("Circle(radius=%.4f)", radius);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Circle other = (Circle) obj;
+        return Math.abs(other.getRadius()-radius) < 0.00005;
+    }
 }
