@@ -6,17 +6,55 @@ public class Guess
 {
     // Use this to get player input in readFromPlayer()
     private static final Scanner INPUT = new Scanner(System.in);
+    private static int guessNumber;
+    private static String chosenWord;
 
     // TODO: Implement constructor with int parameter
     public Guess (int num)
     {
-
+        //Validate guessNumber
+        if (num < 1 || num > 6)
+        {
+            guessNumber = num;
+        }
+        else
+        {
+            throw new GameException("Guess number not between 0-6");
+        }
     }
 
     // TODO: Implement constructor with int and String parameters
     public Guess (int num, String word)
     {
-        
+        //Validate guessNumber
+        if (num < 1 || num > 6)
+        {
+            guessNumber = num;
+        }
+        else
+        {
+            throw new GameException("Guess number not between 0-6");
+        }
+
+        //Validate chosenWord
+        boolean isWord = true;
+        word = word.toUpperCase();
+        for (int i=0; i<5; i++)
+        {
+            if(!(word.charAt(0) >= 'A' && word.charAt(0) <= 'Z'))
+            {
+                isWord = false;
+                break;
+            }
+        }
+        if (isWord)
+        {
+            chosenWord = word;
+        }
+        else
+        {
+            throw new GameException("Guess must be a word of alphabet characters");
+        }
     }
 
     // TODO: Implement getGuessNumber(), returning an int
