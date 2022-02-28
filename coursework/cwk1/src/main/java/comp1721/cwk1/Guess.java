@@ -78,7 +78,8 @@ public class Guess
     // TODO: Implement readFromPlayer()
     public static void readFromPlayer ()
     {
-        
+        System.out.print("Enter guess: ");
+        INPUT.nextLine();
     }
 
     // TODO: Implement compareWith(), giving it a String parameter and String return type
@@ -110,7 +111,6 @@ public class Guess
                 }
             }
         }
-
         return outputString;
     }
 

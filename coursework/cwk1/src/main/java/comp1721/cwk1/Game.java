@@ -2,10 +2,13 @@ package comp1721.cwk1;
 
 public class Game
 {
+    private static int gameNumber;
+    private static String target;
+
     // TODO: Implement constructor with String parameter
     public Game (String filename)
     {
-        
+        WordList
     }
 
     // TODO: Implement constructor with int and String parameters
