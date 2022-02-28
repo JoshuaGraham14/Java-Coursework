@@ -1,17 +1,19 @@
 package comp1721.cwk1;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.nio.file.*;
 
 public class Game
 {
     private static int gameNumber;
     private static String target;
 
-    private static ArrayList<Guess> guessesArray = new ArrayList<Guess>();
+    private static ArrayList<String> guessesArray = new ArrayList<String>();
 
     // TODO: Implement constructor with String parameter
     public Game (String filename) throws IOException
@@ -42,7 +44,9 @@ public class Game
             String guess = INPUT.nextLine();
             INPUT.close();
             Guess g = new Guess(i, guess);
-            System.out.println(g.compareWith(target));
+            String guess = g.compareWith(target)
+            guessesArray.add(guess);
+            System.out.println(guess);
             if(g.matches(target))
             {
                 System.out.print("Well done!");
@@ -54,6 +58,14 @@ public class Game
     // TODO: Implement save() method, with a String parameter
     public static void save(String filename)
     {
-        
+        Path path = Paths.get(filename);
+
+        try (PrintWriter out = new PrintWriter(Files.newBufferedWriter(path)))
+        {
+            for (int i=0; i<5; i++)
+            {
+                out.printf("%s\n", guessesArray.get(i));
+            }
+        }
     }
 }
