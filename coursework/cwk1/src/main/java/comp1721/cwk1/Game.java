@@ -6,6 +6,9 @@ import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import javax.lang.model.util.ElementScanner14;
+
 import java.nio.file.*;
 
 public class Game
@@ -36,33 +39,44 @@ public class Game
     // TODO: Implement play() method
     public static void play()
     {
-        System.out.printf("WORDLE %s/n/n", gameNumber);
+        Scanner INPUT = new Scanner(System.in);
+        System.out.printf("WORDLE %s\n\n", gameNumber);
         for (int i=1; i<=6; i++)
         {
             System.out.printf("Enter guess (%d/6): ", i);
-            Scanner INPUT = new Scanner(System.in);
             String guess = INPUT.nextLine();
-            INPUT.close();
             Guess g = new Guess(i, guess);
-            String guess = g.compareWith(target)
-            guessesArray.add(guess);
-            System.out.println(guess);
+            String formattedGuess = g.compareWith(target);
+            guessesArray.add(formattedGuess);
+            System.out.println(formattedGuess);
             if(g.matches(target))
             {
-                System.out.print("Well done!");
+                if (i == 1)
+                {
+                    System.out.printf("Superb - Got it in one!\n");
+                }
+                else if (i >= 2 && i <=5)
+                {
+                    System.out.printf("Well done!\n");
+                }
+                else
+                {
+                    System.out.printf("That was a close call!\n");
+                }
                 break;
             }
         }
+        INPUT.close();
     }
 
     // TODO: Implement save() method, with a String parameter
-    public static void save(String filename)
+    public static void save(String filename) throws IOException
     {
         Path path = Paths.get(filename);
 
         try (PrintWriter out = new PrintWriter(Files.newBufferedWriter(path)))
         {
-            for (int i=0; i<5; i++)
+            for (int i=0; i<guessesArray.size(); i++)
             {
                 out.printf("%s\n", guessesArray.get(i));
             }

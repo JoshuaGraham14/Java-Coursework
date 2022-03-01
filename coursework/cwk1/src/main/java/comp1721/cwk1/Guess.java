@@ -5,7 +5,6 @@ import java.util.Scanner;
 public class Guess 
 {
     public static final String ANSI_RESET_BACKGROUND = "\033[0m";
-	public static final String ANSI_GREEN = "\u001B[32m";
     public static final String ANSI_GREEN_BACKGROUND = "\033[30;102m";
 	public static final String ANSI_YELLOW_BACKGROUND = "\033[30;103m";
 	public static final String ANSI_WHITE_BACKGROUND = "\033[30;107m";
@@ -19,7 +18,7 @@ public class Guess
     public Guess (int num)
     {
         //Validate guessNumber
-        if (num < 1 || num > 6)
+        if (num >= 1 || num <= 6)
         {
             guessNumber = num;
         }
@@ -33,7 +32,7 @@ public class Guess
     public Guess (int num, String word)
     {
         //Validate guessNumber
-        if (num < 1 || num > 6)
+        if (num >= 1 || num <= 6)
         {
             guessNumber = num;
         }
@@ -47,7 +46,7 @@ public class Guess
         word = word.toUpperCase();
         for (int i=0; i<5; i++)
         {
-            if(!(word.charAt(i) >= 'A' && word.charAt(i) <= 'Z'))
+            if(!(word.charAt(i) >= 'A' && word.charAt(i) <= 'Z') || word.length() !=5)
             {
                 isWord = false;
                 break;
@@ -59,7 +58,7 @@ public class Guess
         }
         else
         {
-            throw new GameException("Guess must be a word of alphabet characters");
+            throw new GameException("Guess not valid");
         }
     }
 
@@ -96,8 +95,12 @@ public class Guess
             else
             {
                 boolean isFound = false;
-                for (int j=i+1; j<(5-i); j++)
+                for (int j=0; j<5; j++)
                 {
+                    if (j == i)
+                    {
+                        continue;
+                    }
                     if(chosenWord.charAt(i) == target.charAt(j))
                     {
                         outputString+= ANSI_YELLOW_BACKGROUND + chosenWord.charAt(i) + ANSI_RESET_BACKGROUND;
@@ -117,7 +120,7 @@ public class Guess
     // TODO: Implement matches(), giving it a String parameter and boolean return type
     public static Boolean matches (String target)
     {
-        if (chosenWord == target.toUpperCase())
+        if (chosenWord.equals(target))
         {
             return true;
         }
