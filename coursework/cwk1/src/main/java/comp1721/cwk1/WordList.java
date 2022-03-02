@@ -7,9 +7,8 @@ import java.util.ArrayList;
 
 public class WordList 
 {
-    private static ArrayList<String> words = new ArrayList<String>();
+    private ArrayList<String> words = new ArrayList<String>();
 
-    // TODO: Implement constructor with a String parameter
     public WordList (String filename) throws IOException
     {
         try(Scanner input = new Scanner(Paths.get(filename)))
@@ -17,19 +16,17 @@ public class WordList
             while (input.hasNextLine())
             {
                 String line = input.nextLine();
-                words.add(line);                
+                words.add(line);            
             }
         }
     }
 
-    // TODO: Implement size() method, returning an int
-    public static int size()
+    public int size()
     {
         return words.size();
     }
 
-    // TODO: Implement getWord() with an int parameter, returning a String
-    public static String getWord (int n)
+    public String getWord (int n)
     {
         return words.get(n);
     }

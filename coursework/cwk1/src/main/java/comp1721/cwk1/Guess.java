@@ -1,42 +1,45 @@
 package comp1721.cwk1;
 
+import java.lang.annotation.Target;
 import java.util.Scanner;
 
 public class Guess 
 {
-    public static final String ANSI_RESET_BACKGROUND = "\033[0m";
-    public static final String ANSI_GREEN_BACKGROUND = "\033[30;102m";
-	public static final String ANSI_YELLOW_BACKGROUND = "\033[30;103m";
-	public static final String ANSI_WHITE_BACKGROUND = "\033[30;107m";
+    private static final String ANSI_RESET_BACKGROUND = " \033[0m";
+    private static final String ANSI_GREEN_BACKGROUND = "\033[30;102m ";
+	private static final String ANSI_YELLOW_BACKGROUND = "\033[30;103m ";
+	private static final String ANSI_WHITE_BACKGROUND = "\033[30;107m ";
 
     // Use this to get player input in readFromPlayer()
     private static final Scanner INPUT = new Scanner(System.in);
-    private static int guessNumber;
-    private static String chosenWord;
+    private int guessNumber;
+    private String chosenWord;
 
-    // TODO: Implement constructor with int parameter
     public Guess (int num)
     {
+        guessNumber = num;
         //Validate guessNumber
-        if (num >= 1 || num <= 6)
-        {
-            guessNumber = num;
-        }
-        else
+        if (!(guessNumber >= 1 || guessNumber <= 6))
         {
             throw new GameException("Guess number not between 0-6");
         }
     }
 
-    // TODO: Implement constructor with int and String parameters
     public Guess (int num, String word)
     {
         //Validate guessNumber
-        if (num >= 1 || num <= 6)
-        {
-            guessNumber = num;
-        }
-        else
+        // if (num >= 1 || num <= 6)
+        // {
+        //     guessNumber = num;
+        // }
+        // else
+        // {
+        //     throw new GameException("Guess number not between 0-6");
+        // }
+
+        guessNumber = num;
+        //Validate guessNumber
+        if (!(guessNumber >= 1 || guessNumber <= 6))
         {
             throw new GameException("Guess number not between 0-6");
         }
@@ -62,63 +65,67 @@ public class Guess
         }
     }
 
-    // TODO: Implement getGuessNumber(), returning an int
-    public static int getGuessNumber ()
+    public int getGuessNumber ()
     {
         return guessNumber;
     }
 
-    // TODO: Implement getChosenWord(), returning a String
-    public static String getChosenWord ()
+    public String getChosenWord ()
     {
         return chosenWord;
     }
 
-    // TODO: Implement readFromPlayer()
-    public static void readFromPlayer ()
+    public void readFromPlayer ()
     {
         System.out.print("Enter guess: ");
         INPUT.nextLine();
     }
 
-    // TODO: Implement compareWith(), giving it a String parameter and String return type
-    public static String compareWith (String target)
+    public String compareWith (String target)
     {
         String outputString = "";
+        StringBuilder targetCopy = new StringBuilder(target);
 
         for (int i=0; i<5; i++)
         {
             if(chosenWord.charAt(i) == target.charAt(i))
             {
-                outputString+= ANSI_GREEN_BACKGROUND + chosenWord.charAt(i) + ANSI_RESET_BACKGROUND;
+                targetCopy.setCharAt(i, '_');
+                continue;
             }
-            else
+        }
+
+        for (int i=0; i<5; i++)
+        {
+            //System.out.printf("TargetCopy: %s\n", targetCopy);
+            if(targetCopy.charAt(i) == '_')
             {
-                boolean isFound = false;
-                for (int j=0; j<5; j++)
+                outputString+= ANSI_GREEN_BACKGROUND + chosenWord.charAt(i) + ANSI_RESET_BACKGROUND;
+                continue;
+            }
+            
+            boolean isFound = false;
+            for (int j=0; j<5; j++)
+            {
+                //System.out.printf("guess:%d, target:%d\n", i,j);
+                if(chosenWord.charAt(i) == targetCopy.charAt(j))
                 {
-                    if (j == i)
-                    {
-                        continue;
-                    }
-                    if(chosenWord.charAt(i) == target.charAt(j))
-                    {
-                        outputString+= ANSI_YELLOW_BACKGROUND + chosenWord.charAt(i) + ANSI_RESET_BACKGROUND;
-                        isFound = true;
-                        break;
-                    }
+                    //System.out.println("Yellow");
+                    outputString+= ANSI_YELLOW_BACKGROUND + chosenWord.charAt(i) + ANSI_RESET_BACKGROUND;
+                    targetCopy.setCharAt(j, '-');
+                    isFound = true;
+                    break;
                 }
-                if(!isFound)
-                {
-                    outputString+= ANSI_WHITE_BACKGROUND + chosenWord.charAt(i) + ANSI_RESET_BACKGROUND;
-                }
+            }
+            if(!isFound)
+            {
+                outputString+= ANSI_WHITE_BACKGROUND + chosenWord.charAt(i) + ANSI_RESET_BACKGROUND;
             }
         }
         return outputString;
     }
 
-    // TODO: Implement matches(), giving it a String parameter and boolean return type
-    public static Boolean matches (String target)
+    public Boolean matches (String target)
     {
         if (chosenWord.equals(target))
         {

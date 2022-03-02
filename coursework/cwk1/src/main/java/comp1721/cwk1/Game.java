@@ -13,12 +13,11 @@ import java.nio.file.*;
 
 public class Game
 {
-    private static int gameNumber;
-    private static String target;
+    private int gameNumber;
+    private String target;
 
-    private static ArrayList<String> guessesArray = new ArrayList<String>();
+    private ArrayList<String> guessesArray = new ArrayList<String>();
 
-    // TODO: Implement constructor with String parameter
     public Game (String filename) throws IOException
     {
         WordList w = new WordList(filename);
@@ -26,18 +25,17 @@ public class Game
         LocalDate today = LocalDate.now();
 
         gameNumber = (int) ChronoUnit.DAYS.between(startDate, today);
-        target = w.getWord(gameNumber);
+        
+        target = w.getWord(gameNumber+2);
     }
 
-    // TODO: Implement constructor with int and String parameters
     public Game (int num, String filename) throws IOException
     {
         WordList w = new WordList(filename);
         target = w.getWord(num);
     }
 
-    // TODO: Implement play() method
-    public static void play()
+    public void play()
     {
         Scanner INPUT = new Scanner(System.in);
         System.out.printf("WORDLE %s\n\n", gameNumber);
@@ -69,8 +67,7 @@ public class Game
         INPUT.close();
     }
 
-    // TODO: Implement save() method, with a String parameter
-    public static void save(String filename) throws IOException
+    public void save(String filename) throws IOException
     {
         Path path = Paths.get(filename);
 
