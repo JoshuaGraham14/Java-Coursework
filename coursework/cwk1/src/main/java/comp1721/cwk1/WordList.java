@@ -28,6 +28,10 @@ public class WordList
 
     public String getWord (int n)
     {
+        if (n<0 || n>size()-1)
+        {
+            throw new GameException("Word number not valid");
+        }
         return words.get(n);
     }
 }

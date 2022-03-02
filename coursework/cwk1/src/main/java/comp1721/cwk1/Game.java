@@ -7,8 +7,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import javax.lang.model.util.ElementScanner14;
-
 import java.nio.file.*;
 
 public class Game
@@ -23,15 +21,16 @@ public class Game
         WordList w = new WordList(filename);
         LocalDate startDate = LocalDate.of(2021, 6, 19);
         LocalDate today = LocalDate.now();
-
-        gameNumber = (int) ChronoUnit.DAYS.between(startDate, today);
         
-        target = w.getWord(gameNumber+2);
+        gameNumber = (int) ChronoUnit.DAYS.between(startDate, today);
+        target = w.getWord(gameNumber-2);
     }
 
     public Game (int num, String filename) throws IOException
     {
+        gameNumber=num;
         WordList w = new WordList(filename);
+        
         target = w.getWord(num);
     }
 

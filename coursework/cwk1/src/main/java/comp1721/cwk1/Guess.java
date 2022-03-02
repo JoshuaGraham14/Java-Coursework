@@ -1,6 +1,5 @@
 package comp1721.cwk1;
 
-import java.lang.annotation.Target;
 import java.util.Scanner;
 
 public class Guess 
@@ -17,39 +16,36 @@ public class Guess
 
     public Guess (int num)
     {
-        guessNumber = num;
         //Validate guessNumber
-        if (!(guessNumber >= 1 || guessNumber <= 6))
+        if (num < 1 || num > 6)
         {
             throw new GameException("Guess number not between 0-6");
         }
+        guessNumber = num;
+        readFromPlayer();
     }
 
     public Guess (int num, String word)
     {
         //Validate guessNumber
-        // if (num >= 1 || num <= 6)
-        // {
-        //     guessNumber = num;
-        // }
-        // else
-        // {
-        //     throw new GameException("Guess number not between 0-6");
-        // }
-
-        guessNumber = num;
-        //Validate guessNumber
-        if (!(guessNumber >= 1 || guessNumber <= 6))
+        if (num < 1 || num > 6)
         {
             throw new GameException("Guess number not between 0-6");
         }
+        guessNumber = num;
 
         //Validate chosenWord
         boolean isWord = true;
         word = word.toUpperCase();
+
+        if (word.length() !=5)
+        {
+            throw new GameException("Guess not valid");
+        }
+
         for (int i=0; i<5; i++)
         {
-            if(!(word.charAt(i) >= 'A' && word.charAt(i) <= 'Z') || word.length() !=5)
+            if(!(word.charAt(i) >= 'A' && word.charAt(i) <= 'Z'))
             {
                 isWord = false;
                 break;
