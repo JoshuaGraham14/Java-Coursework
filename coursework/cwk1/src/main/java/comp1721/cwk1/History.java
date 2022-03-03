@@ -2,7 +2,6 @@ package comp1721.cwk1;
 
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.security.spec.ECPublicKeySpec;
 import java.util.ArrayList;
 import java.util.Scanner;
 

@@ -85,15 +85,30 @@ task runFixed(type: JavaExec) {
   }
 }
 
+task runAccessible(type: JavaExec) {
+  group 'application'
+  description 'Runs the game specified as a command line argument.'
+  standardInput = System.in
+  classpath = sourceSets.main.runtimeClasspath
+  mainClass = 'comp1721.cwk1.Wordle'
+  args ('-a')
+  doFirst {
+    println "\nRunning today's Wordle with accessible mode enabled"
+    println "----------------------------------------------------------------"
+  }
+}
+
 task runFixedAccessible(type: JavaExec) {
   group 'application'
   description 'Runs the game specified as a command line argument.'
   standardInput = System.in
   classpath = sourceSets.main.runtimeClasspath
   mainClass = 'comp1721.cwk1.Wordle'
-  args '-a'
+  args ('-a', 100)
   doFirst {
     println "\nRunning with accessible mode enabled"
+    println "\nRunning with 100 as a command line argument"
+    println "(Target word for Game 100 is BASIC)\n"
     println "----------------------------------------------------------------"
   }
 }

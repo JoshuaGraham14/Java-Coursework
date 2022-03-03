@@ -14,6 +14,8 @@ public class Guess
     private int guessNumber;
     private String chosenWord;
 
+    private String[] accessibilityPositionsArray = {"1st", "2nd", "3rd", "4th", "5th"};
+
     public Guess (int num)
     {
         //Validate guessNumber
@@ -118,6 +120,47 @@ public class Guess
                 outputString+= ANSI_WHITE_BACKGROUND + chosenWord.charAt(i) + ANSI_RESET_BACKGROUND;
             }
         }
+        return outputString;
+    }
+
+    public String compareWithAccessibility (String target)
+    {
+        String outputString = "";
+        StringBuilder targetCopy = new StringBuilder(target);
+
+        for (int i=0; i<5; i++)
+        {
+            if(chosenWord.charAt(i) == target.charAt(i))
+            {
+                targetCopy.setCharAt(i, '_');
+                continue;
+            }
+        }
+
+        for (int i=0; i<5; i++)
+        {
+            //System.out.printf("TargetCopy: %s\n", targetCopy);
+            if(targetCopy.charAt(i) == '_')
+            {
+                outputString+= accessibilityPositionsArray[i] + " perfect, ";
+                continue;
+            }
+            
+            boolean isFound = false;
+            for (int j=0; j<5; j++)
+            {
+                //System.out.printf("guess:%d, target:%d\n", i,j);
+                if(chosenWord.charAt(i) == targetCopy.charAt(j))
+                {
+                    //System.out.println("Yellow");
+                    outputString+= accessibilityPositionsArray[i] + " correct but in wrong place, ";
+                    targetCopy.setCharAt(j, '-');
+                    isFound = true;
+                    break;
+                }
+            }
+        }
+        outputString = outputString.substring(0, outputString.length() - 2);
         return outputString;
     }
 

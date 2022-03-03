@@ -1,10 +1,7 @@
 package comp1721.cwk1;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.lang.reflect.Field;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -20,6 +17,8 @@ public class Game
     private int wordWasGuessed;
     private int numberOfGuesses;
 
+    private boolean accessibilityMode;
+
     private ArrayList<String> guessesArray = new ArrayList<String>();
 
     public Game (String filename) throws IOException
@@ -30,6 +29,18 @@ public class Game
         
         gameNumber = (int) ChronoUnit.DAYS.between(startDate, today);
         target = w.getWord(gameNumber+2);
+        accessibilityMode=false;
+    }
+
+    public Game (String filename, boolean accessibilityMode) throws IOException
+    {
+        WordList w = new WordList(filename);
+        LocalDate startDate = LocalDate.of(2021, 6, 19);
+        LocalDate today = LocalDate.now();
+        
+        gameNumber = (int) ChronoUnit.DAYS.between(startDate, today);
+        target = w.getWord(gameNumber+2);
+        this.accessibilityMode = accessibilityMode;
     }
 
     public Game (int num, String filename) throws IOException
@@ -38,6 +49,16 @@ public class Game
         WordList w = new WordList(filename);
         
         target = w.getWord(num);
+        accessibilityMode=false;
+    }
+
+    public Game (int num, String filename, boolean accessibilityMode) throws IOException
+    {
+        gameNumber=num;
+        WordList w = new WordList(filename);
+        
+        target = w.getWord(num);
+        this.accessibilityMode = accessibilityMode;
     }
 
     public void play()
@@ -50,6 +71,10 @@ public class Game
             String guess = INPUT.nextLine();
             Guess g = new Guess(i, guess);
             String formattedGuess = g.compareWith(target);
+            if (accessibilityMode)
+            {
+                formattedGuess = g.compareWithAccessibility(target);
+            }
             guessesArray.add(formattedGuess);
             System.out.println(formattedGuess);
             if(g.matches(target))
