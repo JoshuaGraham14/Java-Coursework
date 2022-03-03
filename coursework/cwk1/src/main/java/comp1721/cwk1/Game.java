@@ -118,6 +118,19 @@ public class Game
 
     public void printStatistics(String filename) throws IOException
     {
-        
+        History h = new History(filename);
+
+        System.out.println("\n********** STATS **********");
+        System.out.printf("Games Played: %d\n", h.getNumOfGamesPlayed());
+        System.out.printf("Win Percentage: %.1f%%\n", h.getPercentageWon());
+        System.out.printf("Current Winning Streak: %d\n", h.getCurrentWinningStreak());
+        System.out.printf("Longest Winning Streak: %d\n", h.getLongestWinningStreak());
+        System.out.println("*------- HISTOGRAM -------*");
+        System.out.printf("1: %d\n", h.getDistrubtion()[0]);
+        System.out.printf("2: %d\n", h.getDistrubtion()[1]);
+        System.out.printf("3: %d\n", h.getDistrubtion()[2]);
+        System.out.printf("4: %d\n", h.getDistrubtion()[3]);
+        System.out.printf("5: %d\n", h.getDistrubtion()[4]);
+        System.out.printf("6: %d\n", h.getDistrubtion()[5]);
     }
 }

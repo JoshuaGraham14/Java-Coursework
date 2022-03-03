@@ -80,7 +80,7 @@ public class History
         int maxTotal = 0;
 
         for (int i=0; i<getNumOfGamesPlayed(); i++)
-        {
+        {    
             if(wordWasGuessedArray.get(i) == 1)
             {
                 total++;
@@ -92,15 +92,29 @@ public class History
                     maxTotal = total;
                 }
                 total = 0;
-                break;
             }
         }
+
+        if (total>maxTotal)
+        {
+            maxTotal = total;
+        }
+
         return maxTotal;
     }
 
-    // public <Integer> getDistrubtion()
-    // {
-        
-    //     return 0;
-    // }
+    public Integer[] getDistrubtion()
+    {
+        Integer[] distributionArray = {0,0,0,0,0,0};
+
+        for (int i=0; i<getNumOfGamesPlayed(); i++)
+        {
+            if (numberOfGuessesArray.get(i) != -1)
+            {
+                distributionArray[numberOfGuessesArray.get(i)-1]++;
+            }
+        }
+
+        return distributionArray;
+    }
 }
