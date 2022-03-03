@@ -1,7 +1,10 @@
 package comp1721.cwk1;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.Field;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -14,6 +17,9 @@ public class Game
     private int gameNumber;
     private String target;
 
+    private int wordWasGuessed;
+    private int numberOfGuesses;
+
     private ArrayList<String> guessesArray = new ArrayList<String>();
 
     public Game (String filename) throws IOException
@@ -23,7 +29,7 @@ public class Game
         LocalDate today = LocalDate.now();
         
         gameNumber = (int) ChronoUnit.DAYS.between(startDate, today);
-        target = w.getWord(gameNumber-2);
+        target = w.getWord(gameNumber+2);
     }
 
     public Game (int num, String filename) throws IOException
@@ -48,6 +54,8 @@ public class Game
             System.out.println(formattedGuess);
             if(g.matches(target))
             {
+                wordWasGuessed = 1;
+                numberOfGuesses = i;
                 if (i == 1)
                 {
                     System.out.printf("Superb - Got it in one!\n");
@@ -60,9 +68,13 @@ public class Game
                 {
                     System.out.printf("That was a close call!\n");
                 }
-                break;
+                INPUT.close();
+                return;
             }
         }
+        System.out.printf("You lose :(\n");
+        wordWasGuessed = 0;
+        numberOfGuesses = -1;
         INPUT.close();
     }
 
@@ -77,5 +89,35 @@ public class Game
                 out.printf("%s\n", guessesArray.get(i));
             }
         }
+    }
+    
+    public void saveHistory(String filename) throws IOException
+    {
+        String gameNumberStr = String.valueOf(gameNumber)+"\n";
+        String wordWasGuessedStr = String.valueOf(wordWasGuessed)+"\n";
+        String numberOfGuessesStr = String.valueOf(numberOfGuesses)+"\n";
+
+        try {
+            Files.write(Paths.get(filename), gameNumberStr.getBytes(), StandardOpenOption.APPEND);
+        }catch (IOException e) {
+            //exception handling left as an exercise for the reader
+        }
+
+        try {
+            Files.write(Paths.get(filename), wordWasGuessedStr.getBytes(), StandardOpenOption.APPEND);
+        }catch (IOException e) {
+            //exception handling left as an exercise for the reader
+        }
+
+        try {
+            Files.write(Paths.get(filename), numberOfGuessesStr.getBytes(), StandardOpenOption.APPEND);
+        }catch (IOException e) {
+            //exception handling left as an exercise for the reader
+        }
+    }
+
+    public void printStatistics(String filename) throws IOException
+    {
+        
     }
 }
