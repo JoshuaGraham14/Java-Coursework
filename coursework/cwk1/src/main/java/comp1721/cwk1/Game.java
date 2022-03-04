@@ -78,9 +78,7 @@ public class Game
         //Iterate 6 times - for the 6 guesses
         for (int i=1; i<=6; i++)
         {
-            System.out.printf("Enter guess (%d/6): ", i);
-            String guess = INPUT.nextLine(); //user input
-            Guess g = new Guess(i, guess); //create new guess object
+            Guess g = new Guess(i); //create new guess object
 
             //formattedGuess string is the result of the conpareWith method
             String formattedGuess = g.compareWith(target);

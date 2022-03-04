@@ -44,7 +44,7 @@ public class Guess
 
         if (word.length() !=5)
         {
-            throw new GameException("Guess not valid");
+            throw new GameException("Guess not valid (word should be 5 letters)");
         }
 
         for (int i=0; i<5; i++)
@@ -61,7 +61,7 @@ public class Guess
         }
         else
         {
-            throw new GameException("Guess not valid");
+            throw new GameException("Guess not valid (word should only contain alphabet characters)");
         }
     }
 
@@ -77,8 +77,21 @@ public class Guess
 
     public void readFromPlayer ()
     {
-        System.out.print("Enter guess: ");
-        INPUT.nextLine();
+        System.out.printf("Enter guess (%d/6): ", getGuessNumber());
+        chosenWord = INPUT.nextLine().toUpperCase();
+
+        //Validate chosenWord
+        if (chosenWord.length() !=5)
+        {
+            throw new GameException("Guess not valid (word should be 5 letters)");
+        }
+        for (int i=0; i<5; i++)
+        {
+            if(!(chosenWord.charAt(i) >= 'A' && chosenWord.charAt(i) <= 'Z'))
+            {
+                throw new GameException("Guess not valid (word should only contain alphabet characters)");
+            }
+        }
     }
 
     public String compareWith (String target)
@@ -169,7 +182,17 @@ public class Guess
                 }
             }
         }
-        outputString = outputString.substring(0, outputString.length() - 2); //remove the last two characters (" ,") from the outputString 
+
+        //if not letters are correct
+        if (outputString.length() == 0)
+        {
+            outputString = "No letters correct";
+        }
+        else
+        {
+            outputString = outputString.substring(0, outputString.length() - 2); //remove the last two characters (" ,") from the outputString 
+        }
+
         return outputString;
     }
 
