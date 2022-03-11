@@ -44,7 +44,7 @@ public class AlarmClock extends Clock
 
     public boolean isRinging()
     {
-        if (getHours() == getAlarmHours() && getAlarmMinutes() == getMinutes() && getSeconds() >= 0 && getSeconds() <= 15)
+        if (getHours() == getAlarmHours() && getAlarmMinutes() == getMinutes() && getSeconds() >= 0 && getSeconds() < 15)
         {
             return true;
         }
