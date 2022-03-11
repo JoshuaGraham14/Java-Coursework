@@ -1,5 +1,3 @@
-import javax.xml.crypto.dsig.keyinfo.RetrievalMethod;
-
 public class AlarmClock extends Clock
 {
     private static int alarmHours;
@@ -7,41 +5,61 @@ public class AlarmClock extends Clock
 
     public AlarmClock()
     {
-
+        super();
     }
     
     public AlarmClock(int h, int m)
     {
-
+        super(h, m);
     }
 
     public AlarmClock(int h, int m, int s)
     {
-
+        super(h, m, s);
     }
 
     public int getAlarmHours()
     {
-        return 0;
+        return alarmHours;
     }
 
     public int getAlarmMinutes()
     {
-        return 0;
+        return alarmMinutes;
     }
 
     public void setAlarm(int h, int m)
     {
-
+        if (h < 0 || h >= HOURS_IN_A_DAY) 
+        {
+            throw new IllegalArgumentException("invalid alarm hours");
+        }
+        if (m < 0 || m >= MINUTES_IN_AN_HOUR)
+        {
+            throw new IllegalArgumentException("invalid alarm minutes");
+        }
+        alarmHours = h;
+        alarmMinutes = m;
     }
 
     public boolean isRinging()
     {
-        return true;
+        if (getHours() == getAlarmHours() && getAlarmMinutes() == getMinutes() && getSeconds() >= 0 && getSeconds() <= 15)
+        {
+            return true;
+        }
+        return false;
     }
 
     public void display()
     {
-
+        if (isRinging())
+        {
+            System.out.println(this + " - WAKE UP!");
+        }
+        else
+        {
+            System.out.println(this);
+        }
     }
 }
