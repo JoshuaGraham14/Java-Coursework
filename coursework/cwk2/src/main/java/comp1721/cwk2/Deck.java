@@ -9,6 +9,8 @@ public class Deck extends CardCollection
 {
     public Deck()
     {
+        super();
+
         for (Suit s : Suit.values()) 
         { 
             for (Rank r : Rank.values()) 
