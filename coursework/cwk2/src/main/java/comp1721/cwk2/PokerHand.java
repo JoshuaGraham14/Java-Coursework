@@ -2,6 +2,8 @@ package comp1721.cwk2;
 
 public class PokerHand extends CardCollection
 {
+    public static int FULL_SIZE;
+
     public PokerHand()
     {
         
@@ -20,7 +22,7 @@ public class PokerHand extends CardCollection
 
     public int size()
     {
-        return 0;
+        return FULL_SIZE;
     }
 
     public void discard()
@@ -38,7 +40,7 @@ public class PokerHand extends CardCollection
         return false;
     }
 
-    public boolean isTwoPair()
+    public boolean isTwoPairs()
     {
         return false;
     }
