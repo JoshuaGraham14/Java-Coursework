@@ -1,6 +1,5 @@
 package comp1721.cwk2;
 
-//Implement Deck class here
 public class Deck extends CardCollection
 {
     public Deck()
@@ -15,12 +14,12 @@ public class Deck extends CardCollection
     
     public boolean isImpty()
     {
-        return true;
+        return false;
     }
     
     public boolean contains(Card c)
     {
-        return true;
+        return false;
     }
     
     public void discard()
