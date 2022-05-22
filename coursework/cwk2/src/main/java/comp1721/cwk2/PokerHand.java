@@ -7,23 +7,14 @@ public class PokerHand extends CardCollection
 {
     public final static int FULL_SIZE = 5;
 
-      /**
-   * Class constructor: creates a PokerHand object.
-   */
     public PokerHand()
     {   
-        super(); //call super constructor
+        super();
     }
 
-      /**
-   * Class constructor: creates a PokerHand object.
-   * @param cardsToAdd string of cards to add to the PokerHand.
-   */
     public PokerHand(String cardsToAdd)
     {
-        String[] splitStr = cardsToAdd.split("\\s+"); //Split string by spaces
-
-        //loop through each split string 
+        String[] splitStr = cardsToAdd.split("\\s+");
         for (String s : splitStr) 
         {
             Card c = new Card(s);
@@ -31,14 +22,8 @@ public class PokerHand extends CardCollection
         }
     }
 
-    /**
-   * Overrides superclass: Adds the given card to this collection.
-   *
-   * @param card Card to be added
-   */
     public void add(Card card) 
     {
-        //Check card is not a duplicate and that the PokerHand is not full.
         if (!contains(card) && cards.size() < FULL_SIZE)
         {
             super.add(card);
@@ -49,41 +34,24 @@ public class PokerHand extends CardCollection
         }
     }
 
-     /**
-   * Creates a two-character string representation for every card in the PokerHand.
-   *
-   * <p>The first character represents rank, the second represents suit.
-   * Special Unicode symbols will be used for the latter if
-   * <code>Card.fancySymbols</code> is set to <code>true</code>.</p>
-   *
-   * @return String representation of the PokerHand
-   */
     @Override
     public String toString()
     {
+        Card.useFancySymbols(false);
         String stringToPrint = "";
-
-        //loop through the cards in the PokerHand and append the Card's string representation to the stringToPrint.
         for (Card c : cards) 
         {
             stringToPrint=stringToPrint+c.toString()+ " ";
         }
-
-        //Remove space at the end of string if the PokerHand is empty.
         if(stringToPrint!="")
         {
             stringToPrint = stringToPrint.substring(0, stringToPrint.length() - 1);
         }
-
-        return stringToPrint; //return string.
+        return stringToPrint;
     }
 
-    /**
-   * Overrides superclass: Discards all the cards from this collection.
-   */
     public void discard()
     {
-        //Only discard IF the deck is not empty:
         if (cards.size() > 0)
         {
             super.discard();
@@ -94,10 +62,6 @@ public class PokerHand extends CardCollection
         }
     }
 
-    /**
-   * Discards all the cards from PokerHand BUT returns cards to the deck specified.
-   * @param d the deck to return cards to
-   */
     public void discardTo(Deck d)
     {
         for (Card c : cards)
@@ -107,10 +71,6 @@ public class PokerHand extends CardCollection
         discard();
     }
 
-    /**
-   * Checks if the PokerHand contains a pair.
-   * @return True if PokerHand contains a pair, false otherwise
-   */
     public boolean isPair()
     {
         if (!isFiveCards()) return false;
@@ -141,10 +101,6 @@ public class PokerHand extends CardCollection
         return false;
     }
 
-    /**
-   * Checks if the PokerHand contains two pairs.
-   * @return True if PokerHand contains two pairs, false otherwise
-   */
     public boolean isTwoPairs()
     {
         if (!isFiveCards()) return false;
@@ -175,10 +131,6 @@ public class PokerHand extends CardCollection
         return false;
     }
 
-    /**
-   * Checks if the PokerHand contains a three of a kind.
-   * @return True if PokerHand contains a three of a kind, false otherwise
-   */
     public boolean isThreeOfAKind()
     {
         if (!isFiveCards()) return false;
@@ -209,10 +161,6 @@ public class PokerHand extends CardCollection
         return false;
     }
 
-    /**
-   * Checks if the PokerHand contains a four of a kind.
-   * @return True if PokerHand contains a four of a kind, false otherwise
-   */
     public boolean isFourOfAKind()
     {
         if (!isFiveCards()) return false;
@@ -237,10 +185,6 @@ public class PokerHand extends CardCollection
         return false;
     }
 
-    /**
-   * Checks if the PokerHand contains a full house.
-   * @return True if PokerHand contains a full house, false otherwise
-   */
     public boolean isFullHouse()
     {
         if (!isFiveCards()) return false;
@@ -271,10 +215,6 @@ public class PokerHand extends CardCollection
         return false;
     }
 
-    /**
-   * Checks if the PokerHand contains a flush.
-   * @return True if PokerHand contains a flush, false otherwise
-   */
     public boolean isFlush()
     {
         if (!isFiveCards()) return false;
@@ -299,13 +239,16 @@ public class PokerHand extends CardCollection
         return false;
     }
 
-    /**
-   * Checks if the PokerHand contains a straight.
-   * @return True if PokerHand contains a straight, false otherwise
-   */
     public boolean isStraight()
     {
         if (!isFiveCards()) return false;
+
+        //Card.useFancySymbols(true);
+        // for (Card c : cards)
+        // {
+        //     System.out.print(c.toString() + ", ");
+        // }
+        // System.out.println();
         
         sortCardsByRank();
 
@@ -325,10 +268,6 @@ public class PokerHand extends CardCollection
         return true;
     }
 
-    /**
-   * Checks if the PokerHand contains 5 cards.
-   * @return True if PokerHand contains 5 cards, false otherwise
-   */
     public boolean isFiveCards()
     {
         if(cards.size() < 5)
@@ -338,12 +277,9 @@ public class PokerHand extends CardCollection
         return true;
     }
 
-    /**
-   * Sorts the PokerHand cards by rank.
-   */
     public void sortCardsByRank()
     {
-        //Sort cards (using bubble sort)
+        //Sort cards
         boolean sorted = false;
         while (!sorted)
         {
@@ -352,7 +288,6 @@ public class PokerHand extends CardCollection
             {
                 if(cards.get(i).getRank().compareTo(cards.get(i+1).getRank()) > 0)
                 {
-                    //Cards are in wrong order so swap:
                     Card temp = cards.get(i+1);
                     cards.remove(i+1);
                     cards.add(i+1, cards.get(i));
