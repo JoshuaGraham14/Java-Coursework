@@ -5,6 +5,10 @@ import java.util.Collections;
 import comp1721.cwk2.Card.Rank;
 import comp1721.cwk2.Card.Suit;
 
+/**
+ * Representation of a deck of cards.
+ * @author Joshua Graham
+ */
 public class Deck extends CardCollection
 {
     public Deck()
