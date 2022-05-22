@@ -37,7 +37,6 @@ public class PokerHand extends CardCollection
     @Override
     public String toString()
     {
-        Card.useFancySymbols(false);
         String stringToPrint = "";
         for (Card c : cards) 
         {
