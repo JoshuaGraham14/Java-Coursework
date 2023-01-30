@@ -1,3 +1,3 @@
 # Java Coursework
 
-A collection of my university work for an Object Oriented Programming module. 
+A collection of my work from my Object Oriented Programming module.
